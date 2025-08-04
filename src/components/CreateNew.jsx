@@ -12,19 +12,23 @@ const CreateNew = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault()
     props.addNew({
-      content,
-      author,
-      info,
+      content: content.value,
+      author: author.value,
+      info: info.value,
       votes: 0
     })
-    setContent('')
-    setAuthor('')
-    setInfo('')
+    resetFields()
     navigate('/')
-    props.setNotification(`Your anecdote has been added: ${content}!`)
+    props.setNotification(`Your anecdote has been added: ${content.value}!`)
     setTimeout(() => {
       props.setNotification('')
     }, 5000)
+  }
+
+  const resetFields = () => {
+    content.reset()
+    author.reset()
+    info.reset()
   }
 
   return (
@@ -43,7 +47,8 @@ const CreateNew = (props) => {
           url for more info
           <input name='info' {...info} />
         </div>
-        <button>create</button>
+        <button style={{ marginRight: 5 }}>create</button>
+        <button type='button' onClick={resetFields}>reset form</button>
       </form>
     </div>
   )
